@@ -1,4 +1,4 @@
-package com.jbangit.redmine2.ui.issues
+package com.yjy.redmine2.ui.issues
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

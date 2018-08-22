@@ -1,9 +1,9 @@
-package com.jbangit.redmine2.ui.issues
+package com.yjy.redmine2.ui.issues
 
 import androidx.recyclerview.widget.DiffUtil
-import com.jbangit.redmine2.R
-import com.jbangit.redmine2.common.DataBoundListAdapter
-import com.jbangit.redmine2.databinding.ViewItemIssuesListBinding
+import com.yjy.redmine2.R
+import com.yjy.redmine2.common.DataBoundListAdapter
+import com.yjy.redmine2.databinding.ViewItemIssuesListBinding
 
 class IssuesAdapter : DataBoundListAdapter<String, ViewItemIssuesListBinding>(
     itemCallback = object : DiffUtil.ItemCallback<String>() {

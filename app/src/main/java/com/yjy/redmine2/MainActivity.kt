@@ -1,10 +1,8 @@
-package com.jbangit.redmine2
+package com.yjy.redmine2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.jbangit.redmine2.ui.issues.IssuesFragment
+import com.yjy.redmine2.ui.issues.IssuesFragment
 
 class MainActivity : AppCompatActivity() {
 

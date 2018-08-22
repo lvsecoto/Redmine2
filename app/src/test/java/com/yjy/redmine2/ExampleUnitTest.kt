@@ -1,4 +1,4 @@
-package com.jbangit.redmine2
+package com.yjy.redmine2
 
 import org.junit.Test
 

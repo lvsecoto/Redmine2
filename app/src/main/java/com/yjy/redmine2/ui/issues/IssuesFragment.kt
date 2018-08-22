@@ -1,4 +1,4 @@
-package com.jbangit.redmine2.ui.issues
+package com.yjy.redmine2.ui.issues
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.jbangit.redmine2.R
-import com.jbangit.redmine2.databinding.FragmentIssuesBinding
+import com.yjy.redmine2.R
+import com.yjy.redmine2.databinding.FragmentIssuesBinding
 
 class IssuesFragment : Fragment() {
 
