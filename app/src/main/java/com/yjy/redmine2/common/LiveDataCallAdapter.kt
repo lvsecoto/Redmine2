@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.server
+package com.yjy.redmine2.common
 
 
 import androidx.lifecycle.LiveData

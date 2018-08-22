@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.repository
+package com.yjy.redmine2.common
 
 /**
  * Status of a resource that is provided to the UI.

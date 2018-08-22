@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.repository
+package com.yjy.redmine2.common
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.yjy.redmine2.AppExecutors
-import com.yjy.redmine2.server.ApiEmptyResponse
-import com.yjy.redmine2.server.ApiErrorResponse
-import com.yjy.redmine2.server.ApiResponse
-import com.yjy.redmine2.server.ApiSuccessResponse
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
@@ -37,7 +33,7 @@ import com.yjy.redmine2.server.ApiSuccessResponse
  */
 abstract class NetworkBoundResource<ResultType, RequestType>
 @MainThread constructor() {
-    private val appExecutors: AppExecutors = AppExecutors()
+    private val appExecutors: AppExecutors = AppExecutors
     private val result = MediatorLiveData<Resource<ResultType>>()
 
     init {
@@ -98,7 +94,12 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                 is ApiErrorResponse -> {
                     onFetchFailed()
                     result.addSource(dbSource) { newData ->
-                        setValue(Resource.error(response.errorMessage, newData))
+                        setValue(
+                            Resource.error(
+                                response.errorMessage,
+                                newData
+                            )
+                        )
                     }
                 }
             }

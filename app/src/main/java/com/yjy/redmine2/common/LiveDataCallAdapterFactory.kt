@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.android.example.github.util
+package com.yjy.redmine2.common
 
-import android.arch.lifecycle.LiveData
-import com.android.example.github.api.ApiResponse
-import com.yjy.redmine2.server.LiveDataCallAdapter
+import androidx.lifecycle.LiveData
 import retrofit2.CallAdapter
 import retrofit2.CallAdapter.Factory
 import retrofit2.Retrofit

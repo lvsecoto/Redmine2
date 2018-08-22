@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.repository
+package com.yjy.redmine2.common
 
-import com.yjy.redmine2.repository.Status.*
+import com.yjy.redmine2.common.Status.*
 
 /**
  * A generic class that holds a value with its loading status.
