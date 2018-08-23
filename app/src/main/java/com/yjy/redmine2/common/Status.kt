@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source APIProject
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.yjy.redmine2.common
 
 /**
- * Status of a resource that is provided to the UI.
+ * APIStatus of a resource that is provided to the UI.
  *
  *
  * These are usually created by the Repository classes where they return

@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yjy.redmine2.R
 import com.yjy.redmine2.databinding.FragmentIssuesBinding
-import com.yjy.redmine2.server.Retrofit
 
 class IssuesFragment : Fragment() {
 
@@ -37,10 +36,9 @@ class IssuesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssuesViewModel::class.java)
-        viewModel.issues.observe(this, Observer(adapter::submitList))
-        Retrofit.server.getIssues().observe(this, Observer {
-            return@Observer
+        viewModel.issues.observe(this, Observer {
+            when(it) {
+            }
         })
     }
-
 }

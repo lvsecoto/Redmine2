@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.jbangit.redmine2"
+        applicationId "com.yjy.redmine2"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
@@ -48,4 +48,11 @@ dependencies {
 dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+}
+
+dependencies {
+    def room_version = "2.0.0-rc01"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
 }
