@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_issues"
+    app:startDestination="@id/issuesFragment">
+
+    <fragment
+        android:id="@+id/issuesFragment"
+        android:name="com.yjy.redmine2.ui.issues.IssuesFragment"
+        android:label="IssuesFragment" >
+        <action
+            android:id="@+id/action_issuesFragment_to_issueDetailFragment"
+            app:destination="@id/issueDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/issueDetailFragment"
+        android:name="com.yjy.redmine2.ui.issuesdetail.IssueDetailFragment"
+        android:label="issue_detail_fragment"
+        tools:layout="@layout/issue_detail_fragment" >
+    </fragment>
+</navigation>

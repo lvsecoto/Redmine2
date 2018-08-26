@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="issue"
+            type="com.yjy.redmine2.repository.model.IssueList"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,6 +49,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:text="@{issue.subject}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?android:attr/colorPrimary" />
+            app:srcCompat="@color/colorPrimary" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

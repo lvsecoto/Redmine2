@@ -3,7 +3,7 @@ package com.yjy.redmine2.db.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "issues")
+@Entity(tableName = "issue")
 data class IssueEntity(
     @field:PrimaryKey
     val id : Int = -1,

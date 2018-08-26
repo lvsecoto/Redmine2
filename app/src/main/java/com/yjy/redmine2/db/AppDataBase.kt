@@ -9,9 +9,7 @@ import com.yjy.redmine2.db.model.IssueEntity
 @Database(entities = [
     IssueEntity::class
 ], version = 1)
-abstract class AppDatabase :RoomDatabase(){
-
-    abstract fun issuesDao() : IssuesDao
+abstract class AppDatabase :RoomDatabase(), DaoComponent {
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

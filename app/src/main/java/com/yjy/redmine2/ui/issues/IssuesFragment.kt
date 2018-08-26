@@ -37,8 +37,7 @@ class IssuesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssuesViewModel::class.java)
         viewModel.issues.observe(this, Observer {
-            when(it) {
-            }
+            adapter.submitList(it.data)
         })
     }
 }
