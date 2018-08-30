@@ -1,12 +1,10 @@
 package com.yjy.redmine2.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
 import com.yjy.redmine2.db.model.IssueEntity
-import com.yjy.redmine2.repository.model.IssueList
+import com.yjy.redmine2.db.model.StatusEntity
+import com.yjy.redmine2.repository.model.IssueInList
 
 @Dao
 abstract class IssuesDao {
@@ -24,5 +22,11 @@ abstract class IssuesDao {
     }
 
     @Query("SELECT id, subject FROM issue")
-    abstract fun getIssues() : LiveData<List<IssueList>>
+    abstract fun getIssues() : LiveData<List<IssueInList>>
+
+    @Query("SELECT * FROM status")
+    abstract fun getStatusEntities(): LiveData<List<StatusEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertStatuesEntities(statusEntities: List<StatusEntity>)
 }

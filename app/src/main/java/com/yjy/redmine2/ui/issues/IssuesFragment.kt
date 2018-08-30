@@ -39,5 +39,8 @@ class IssuesFragment : Fragment() {
         viewModel.issues.observe(this, Observer {
             adapter.submitList(it.data)
         })
+        viewModel.statusEntity.observe(this, Observer {
+            return@Observer
+        })
     }
 }

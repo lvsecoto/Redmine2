@@ -8,6 +8,10 @@ import com.yjy.redmine2.repository.IssueRepository
 class IssuesViewModel(
     application: Application
 ) : AndroidViewModel(application) {
+
     private val issueRepository = IssueRepository(AppDatabase.getInstance(application))
+
     val issues = issueRepository.issues
+
+    val statusEntity = issueRepository.statueEntity
 }
