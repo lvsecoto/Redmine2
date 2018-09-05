@@ -23,11 +23,11 @@ class IssueRepository(
                         IssueEntity(
                             id = issues.id,
                             subject = issues.subject,
-                            projectId = issues.priority.id,
-                            authorId = issues.author.id,
-                            assignToId = issues.assigned_to.id,
-                            statusId = issues.status.id,
-                            priorityId = issues.project.id
+                            projectName = issues.priority.name,
+                            authorName = issues.author.name,
+                            assignTo = issues.assigned_to.name,
+                            statusName = issues.status.name,
+                            priorityName = issues.project.name
                         )
                     }
                 )
@@ -38,7 +38,7 @@ class IssueRepository(
             }
 
             override fun loadFromDb(): LiveData<List<IssueInList>> {
-                return appDatabase.issuesDao.getIssues()
+                return appDatabase.issuesDao.getIssuesInList()
             }
 
             override fun createCall(): LiveData<ApiResponse<IssuesRespone>> = server.getIssues()

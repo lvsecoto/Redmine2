@@ -21,8 +21,8 @@ abstract class IssuesDao {
         insertIssues(issues)
     }
 
-    @Query("SELECT id, subject FROM issue")
-    abstract fun getIssues() : LiveData<List<IssueInList>>
+    @Query("SELECT id, subject, statusName, priorityName, projectName, assignTo, authorName FROM issue")
+    abstract fun getIssuesInList() : LiveData<List<IssueInList>>
 
     @Query("SELECT * FROM status")
     abstract fun getStatusEntities(): LiveData<List<StatusEntity>>
