@@ -29,4 +29,7 @@ abstract class IssuesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertStatuesEntities(statusEntities: List<StatusEntity>)
+
+    @Query("UPDATE issue WHERE id == :issueId")
+    abstract fun updateIssueStatus(issueId: Int, statusId: Int)
 }

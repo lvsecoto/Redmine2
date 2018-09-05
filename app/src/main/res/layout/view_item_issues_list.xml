@@ -7,6 +7,10 @@
         <variable
             name="issue"
             type="com.yjy.redmine2.repository.model.IssueInList"/>
+
+        <variable
+            name="viewModel"
+            type="com.yjy.redmine2.ui.issues.IssuesViewModel"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -112,16 +116,16 @@
                 app:layout_constraintGuide_percent=".7" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/solved"
+                android:id="@+id/solve_it"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:insetTop="8dp"
                 android:insetBottom="8dp"
                 android:text="解决"
+                android:onClick="@{()->viewModel.solveIssue(issue.id)}"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 app:cornerRadius="1dp"

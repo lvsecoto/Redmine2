@@ -6,7 +6,7 @@ import com.yjy.redmine2.common.DataBoundListAdapter
 import com.yjy.redmine2.databinding.ViewItemIssuesListBinding
 import com.yjy.redmine2.repository.model.IssueInList
 
-class IssuesAdapter : DataBoundListAdapter<IssueInList, ViewItemIssuesListBinding>(
+class IssuesAdapter(viewModel: IssuesViewModel) : DataBoundListAdapter<IssueInList, ViewItemIssuesListBinding>(
     itemCallback = object : DiffUtil.ItemCallback<IssueInList>() {
         override fun areItemsTheSame(oldItem: IssueInList, newItem: IssueInList): Boolean =
             oldItem.id == newItem.id

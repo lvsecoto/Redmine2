@@ -1,6 +1,7 @@
 package com.yjy.redmine2.repository
 
 import androidx.lifecycle.LiveData
+import com.yjy.redmine2.common.AbsentLiveData
 import com.yjy.redmine2.common.ApiResponse
 import com.yjy.redmine2.common.NetworkBoundResource
 import com.yjy.redmine2.db.AppDatabase
@@ -10,6 +11,7 @@ import com.yjy.redmine2.repository.model.IssueInList
 import com.yjy.redmine2.server.Retrofit.server
 import com.yjy.redmine2.server.model.IssuesRespone
 import com.yjy.redmine2.server.model.StatusesResponse
+import com.yjy.redmine2.server.model.UpdateIssueStatusRequest
 
 class IssueRepository(
     val appDatabase: AppDatabase
@@ -68,6 +70,21 @@ class IssueRepository(
             override fun createCall(): LiveData<ApiResponse<StatusesResponse>> =
                 server.getStatuses()
         }.asLiveData()
+
+    fun solvedIssue(issueId : Int) =
+            object : NetworkBoundResource<Void, Void>() {
+                override fun saveCallResult(item: Void) {
+                    appDatabase.issuesDao.updateIssueStatus(issueId, 3)
+                }
+
+                override fun shouldFetch(data: Void?): Boolean = true
+
+                override fun loadFromDb(): LiveData<Void> = AbsentLiveData.create()
+
+                override fun createCall(): LiveData<ApiResponse<Void>> {
+                    return server.updateIssueStatus(issueId, UpdateIssueStatusRequest())
+                }
+            }
 
     fun refresh() {
 
