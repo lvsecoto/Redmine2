@@ -12,5 +12,6 @@ data class IssueEntity(
     val assignTo: String = "",
     val statusName: String = "",
     val authorName: String = "",
-    val priorityName: String = ""
+    val priorityName: String = "",
+    val statusId: Int = -1
 )

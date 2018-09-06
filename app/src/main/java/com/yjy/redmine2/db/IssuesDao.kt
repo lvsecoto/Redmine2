@@ -10,26 +10,39 @@ import com.yjy.redmine2.repository.model.IssueInList
 abstract class IssuesDao {
 
     @Query("DELETE FROM issue")
-    abstract fun deleteAllIssues()
+    abstract fun deleteIssueEntities()
 
     @Insert()
-    abstract fun insertIssues(issues : List<IssueEntity>)
+    abstract fun insertIssueEntities(issues : List<IssueEntity>)
 
     @Transaction
-    open fun deleteAndInsertIssues(issues : List<IssueEntity>) {
-        deleteAllIssues()
-        insertIssues(issues)
+    open fun deleteAndInsertIssueEntities(issues : List<IssueEntity>) {
+        deleteIssueEntities()
+        insertIssueEntities(issues)
     }
 
-    @Query("SELECT id, subject, statusName, priorityName, projectName, assignTo, authorName FROM issue")
-    abstract fun getIssuesInList() : LiveData<List<IssueInList>>
+    @Query("SELECT * FROM issue")
+    abstract fun getIssueEntities() : LiveData<List<IssueEntity>>
+
+    @Query("DELETE FROM status")
+    abstract fun deleteStatuesEntities()
+
+    @Insert()
+    abstract fun insertStatuesEntities(statusEntities: List<StatusEntity>)
+
+    @Transaction
+    open fun deleteAndInsertStatuesEntities(statusEntities: List<StatusEntity>) {
+        deleteStatuesEntities()
+        insertStatuesEntities(statusEntities)
+    }
 
     @Query("SELECT * FROM status")
     abstract fun getStatusEntities(): LiveData<List<StatusEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertStatuesEntities(statusEntities: List<StatusEntity>)
+    @Query("SELECT id, subject, statusName, priorityName, projectName, assignTo, authorName FROM issue")
+    abstract fun getIssuesInList() : LiveData<List<IssueInList>>
 
-    @Query("UPDATE issue WHERE id == :issueId")
+    @Query("UPDATE issue SET statusName = :statusId WHERE id == :issueId")
     abstract fun updateIssueStatus(issueId: Int, statusId: Int)
+
 }

@@ -11,13 +11,13 @@ import retrofit2.http.Path
 
 interface Server {
 
-    @GET("issues.json")
+    @GET("issuesInList.json")
     fun getIssues(): LiveData<ApiResponse<IssuesRespone>>
 
     @GET("issue_statuses.json")
     fun getStatuses(): LiveData<ApiResponse<StatusesResponse>>
 
-    @PUT("issues/{issue_id}.json")
+    @PUT("issuesInList/{issue_id}.json")
     fun updateIssueStatus(@Path("issue_id") issueId: Int, updateIssueStatusRequest: UpdateIssueStatusRequest)
             : LiveData<ApiResponse<Void>>
 
