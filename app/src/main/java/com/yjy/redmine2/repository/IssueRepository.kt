@@ -2,10 +2,9 @@ package com.yjy.redmine2.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
-import com.yjy.redmine2.common.AbsentLiveData
-import com.yjy.redmine2.common.ApiResponse
-import com.yjy.redmine2.common.NetworkBoundResource
+import androidx.lifecycle.Transformations
+import com.yjy.redmine2.common.*
+import com.yjy.redmine2.common.livedata.queue
 import com.yjy.redmine2.db.AppDatabase
 import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
@@ -19,21 +18,10 @@ class IssueRepository(
     val appDatabase: AppDatabase
 ) {
 
-    fun getIssuesInList() {
-        val a = object : MediatorLiveData<Void>() {
-            val a : ArrayList<LiveData<*>> = arrayListOf(
-                issuesEntity,
-                statusesEntity
-            )
-            init {
-                addSource(a[0], object : Observer<Any>{
-                    override fun onChanged(t: Any?) {
-                        removeSource(a[0])
-                        addSource(a[1], this)
-                    }
-                })
-            }
-        }
+    fun getIssuesInList(): MediatorLiveData<Resource<List<IssueInList>>> {
+        return queue(listOf(
+            statusesEntity
+        ), issuesInList)
     }
 
     val issuesInList =

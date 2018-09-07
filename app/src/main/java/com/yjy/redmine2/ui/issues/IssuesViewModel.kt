@@ -14,7 +14,7 @@ class IssuesViewModel(
 
     private val solvedIssuesId = MutableLiveData<Int>()
 
-    val issues = issueRepository.issuesInList
+    val issues = issueRepository.getIssuesInList()
 
     fun solveIssue(issuesId : Int) {
         solvedIssuesId.value = issuesId
