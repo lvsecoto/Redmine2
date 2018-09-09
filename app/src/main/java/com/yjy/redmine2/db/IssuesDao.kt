@@ -12,22 +12,25 @@ abstract class IssuesDao {
     @Query("DELETE FROM issue")
     abstract fun deleteIssueEntities()
 
-    @Insert()
-    abstract fun insertIssueEntities(issues : List<IssueEntity>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertIssueEntities(issues: List<IssueEntity>)
 
     @Transaction
-    open fun deleteAndInsertIssueEntities(issues : List<IssueEntity>) {
+    open fun deleteAndInsertIssueEntities(issues: List<IssueEntity>) {
         deleteIssueEntities()
         insertIssueEntities(issues)
     }
 
     @Query("SELECT * FROM issue")
-    abstract fun getIssueEntities() : LiveData<List<IssueEntity>>
+    abstract fun getIssueEntities(): LiveData<List<IssueEntity>>
+
+    @Query("SELECT * FROM issue WHERE issueId == :issueId")
+    abstract fun getIssueEntity(issueId: Int): LiveData<IssueEntity>
 
     @Query("DELETE FROM status")
     abstract fun deleteStatuesEntities()
 
-    @Insert()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertStatuesEntities(statusEntities: List<StatusEntity>)
 
     @Transaction
@@ -39,10 +42,16 @@ abstract class IssuesDao {
     @Query("SELECT * FROM status")
     abstract fun getStatusEntities(): LiveData<List<StatusEntity>>
 
-    @Query("SELECT id, subject, statusName, priorityName, projectName, assignTo, authorName FROM issue")
-    abstract fun getIssuesInList() : LiveData<List<IssueInList>>
-
-    @Query("UPDATE issue SET statusName = :statusId WHERE id == :issueId")
+    @Query("UPDATE issue SET statusId = :statusId WHERE issueId == :issueId")
     abstract fun updateIssueStatus(issueId: Int, statusId: Int)
+
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query(
+        """
+        SELECT issueId, subject, statusId, status.name as statusName ,priorityName, projectName, assignTo, authorName, statusId FROM issue
+        JOIN status USING(statusId)
+        """
+    )
+    abstract fun getIssuesInList(): LiveData<List<IssueInList>>
 
 }

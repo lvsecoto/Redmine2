@@ -1,7 +1,7 @@
 package com.yjy.redmine2.server.model
 
 
-data class IssuesRespone(
+data class IssuesResponse(
     val issues: List<Issue> = listOf(),
     val total_count: Int = 0,
     val offset: Int = 0,

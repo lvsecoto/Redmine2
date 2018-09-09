@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yjy.redmine2.R
-import com.yjy.redmine2.common.Resource
 import com.yjy.redmine2.common.Status
 import com.yjy.redmine2.databinding.FragmentIssuesBinding
 
@@ -24,7 +23,7 @@ class IssuesFragment : Fragment() {
 
     private lateinit var viewModel: IssuesViewModel
 
-    private lateinit var adapter : IssuesAdapter
+    private lateinit var adapter: IssuesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +31,8 @@ class IssuesFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_issues, container, false)
+            R.layout.fragment_issues, container, false
+        )
         binding.issues.addItemDecoration(ItemDecorate())
         return binding.root
     }
@@ -44,16 +44,24 @@ class IssuesFragment : Fragment() {
         adapter = IssuesAdapter(viewModel)
         binding.issues.adapter = adapter
         viewModel.issues.observe(this, Observer {
-            when(it.status) {
+            when (it.status) {
                 Status.ERROR -> showToast(it.message)
                 else -> {
                     adapter.submitList(it.data)
                 }
             }
         })
+        viewModel.solvedIssue.observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> showToast("Solve issue ${it.data?.issueId}")
+                Status.ERROR -> showToast(it.message)
+                Status.LOADING -> showToast("wait")
+            }
+        })
     }
 
 }
+
 fun Fragment.showToast(toast: String?) {
     Toast.makeText(this.context, toast, Toast.LENGTH_LONG).show()
 }

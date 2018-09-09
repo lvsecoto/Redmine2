@@ -23,7 +23,7 @@ abstract class AppDatabase :RoomDatabase(), DaoComponent {
         private fun buildDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext,
                 AppDatabase::class.java, "app.db")
-                .fallbackToDestructiveMigration()
+                .fallbackToDestructiveMigrationFrom(1)
                 .build()
     }
 }

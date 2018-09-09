@@ -6,10 +6,10 @@ import com.yjy.redmine2.common.DataBoundListAdapter
 import com.yjy.redmine2.databinding.ViewItemIssuesListBinding
 import com.yjy.redmine2.repository.model.IssueInList
 
-class IssuesAdapter(viewModel: IssuesViewModel) : DataBoundListAdapter<IssueInList, ViewItemIssuesListBinding>(
+class IssuesAdapter(private val viewModel: IssuesViewModel) : DataBoundListAdapter<IssueInList, ViewItemIssuesListBinding>(
     itemCallback = object : DiffUtil.ItemCallback<IssueInList>() {
         override fun areItemsTheSame(oldItem: IssueInList, newItem: IssueInList): Boolean =
-            oldItem.id == newItem.id
+            oldItem.issueId == newItem.issueId
 
         override fun areContentsTheSame(oldItem: IssueInList, newItem: IssueInList): Boolean =
             oldItem == newItem
@@ -19,6 +19,7 @@ class IssuesAdapter(viewModel: IssuesViewModel) : DataBoundListAdapter<IssueInLi
     override fun onBindData(binding: ViewItemIssuesListBinding, item: IssueInList) {
         super.onBindData(binding, item)
         binding.issue = item
+        binding.viewModel = viewModel
     }
 
     override val layoutId: Int

@@ -9,12 +9,12 @@ import com.yjy.redmine2.common.Status
 /**
  * 等[sources]逐个LiveData返回的是True，再最终订阅到[result]
  */
-fun <T> queue(sources: List<LiveData<Resource<*>>>, result: LiveData<Resource<T>>) =
-    object : MediatorLiveData<Resource<T>>() {
+fun <T, R> queue(sources: List<LiveData<out Resource<T>>>, result: LiveData<Resource<R>>): LiveData<Resource<R>> =
+    object : MediatorLiveData<Resource<R>>() {
 
-        private val iterator: ListIterator<LiveData<Resource<*>>> = sources.listIterator()
+        private val iterator: ListIterator<LiveData<out Resource<T>>> = sources.listIterator()
 
-        private var source: LiveData<Resource<*>>
+        private var source: LiveData<out Resource<T>>
 
         init {
             check(iterator.hasNext())
@@ -23,8 +23,8 @@ fun <T> queue(sources: List<LiveData<Resource<*>>>, result: LiveData<Resource<T>
 
             source = iterator.next()
 
-            addSource(source, object : Observer<Resource<*>> {
-                override fun onChanged(sourceResult: Resource<*>) =// 当前返回的是true才订阅下一个
+            addSource(source, object : Observer< Resource<T>> {
+                override fun onChanged(sourceResult: Resource<T>) =// 当前返回的是true才订阅下一个
                     when(sourceResult.status) {
                         Status.LOADING -> {
 
@@ -44,7 +44,12 @@ fun <T> queue(sources: List<LiveData<Resource<*>>>, result: LiveData<Resource<T>
                         }
                         Status.ERROR -> {
                             removeSource(source)
-                            value = Resource.error(sourceResult.message?:"123", null)
+                            value = Resource.error(
+                                """
+                                    from source[${iterator.previousIndex()}]: ${sourceResult.message}
+                                """.trimIndent(),
+                                null
+                            )
                         }
                     }
             })

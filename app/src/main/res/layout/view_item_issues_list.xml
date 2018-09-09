@@ -125,7 +125,7 @@
                 android:insetTop="8dp"
                 android:insetBottom="8dp"
                 android:text="解决"
-                android:onClick="@{()->viewModel.solveIssue(issue.id)}"
+                android:onClick="@{()->viewModel.solveIssue(issue)}"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 app:cornerRadius="1dp"
