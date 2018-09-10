@@ -9,6 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.yjy.redmine2.R
 import com.yjy.redmine2.common.Status
 import com.yjy.redmine2.databinding.FragmentIssuesBinding
@@ -41,7 +45,10 @@ class IssuesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssuesViewModel::class.java)
 
-        adapter = IssuesAdapter(viewModel)
+        adapter = IssuesAdapter(
+            viewModel = viewModel
+        ).apply {
+        }
         binding.issues.adapter = adapter
         viewModel.issues.observe(this, Observer {
             when (it.status) {

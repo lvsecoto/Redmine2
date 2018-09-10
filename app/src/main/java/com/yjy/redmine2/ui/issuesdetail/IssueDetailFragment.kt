@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.yjy.redmine2.R
 
 
@@ -30,6 +31,10 @@ class IssueDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssueDetailViewModel::class.java)
         // TODO: Use the ViewModel
+        val issueId = IssueDetailFragmentArgs.fromBundle(arguments).issueId
+        view?.let {
+            Snackbar.make(it, "issueId :$issueId", Snackbar.LENGTH_LONG).show()
+        }
     }
 
 }

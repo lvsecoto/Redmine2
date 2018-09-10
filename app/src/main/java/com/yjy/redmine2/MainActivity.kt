@@ -1,9 +1,8 @@
 package com.yjy.redmine2
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.findNavController
-import com.yjy.redmine2.ui.issues.IssuesFragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +12,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_issues).navigateUp()
+        return findNavController(this, R.id.nav_host).navigateUp()
     }
 }

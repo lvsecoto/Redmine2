@@ -11,11 +11,16 @@
         <variable
             name="viewModel"
             type="com.yjy.redmine2.ui.issues.IssuesViewModel"/>
+
+        <variable
+            name="onClickItem"
+            type="android.view.View.OnClickListener"/>
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{onClickItem}"
         app:cardCornerRadius="4dp"
         app:cardElevation="1dp"
         android:clickable="true"

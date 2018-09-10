@@ -10,14 +10,17 @@
         android:name="com.yjy.redmine2.ui.issues.IssuesFragment"
         android:label="IssuesFragment" >
         <action
-            android:id="@+id/action_issuesFragment_to_issueDetailFragment"
-            app:destination="@id/issueDetailFragment" />
+            android:id="@+id/action_view_issue_detail"
+            app:destination="@id/issueDetailFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/issueDetailFragment"
         android:name="com.yjy.redmine2.ui.issuesdetail.IssueDetailFragment"
-        android:label="issue_detail_fragment"
+        android:label="IssueDetailFragment"
         tools:layout="@layout/issue_detail_fragment" >
+        <argument
+            android:name="issue_id"
+            app:argType="integer" />
     </fragment>
 </navigation>
