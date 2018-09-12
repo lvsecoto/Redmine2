@@ -1,15 +1,15 @@
 package com.yjy.redmine2.ui.issuesdetail
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.navigation.findNavController
-import com.google.android.material.snackbar.Snackbar
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.yjy.redmine2.R
+import com.yjy.redmine2.databinding.FragmentIssueDetailBinding
 
 
 class IssueDetailFragment : Fragment() {
@@ -20,20 +20,27 @@ class IssueDetailFragment : Fragment() {
 
     private lateinit var viewModel: IssueDetailViewModel
 
+    private lateinit var binding: FragmentIssueDetailBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.issue_detail_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_issue_detail, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssueDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+
         val issueId = IssueDetailFragmentArgs.fromBundle(arguments).issueId
-        view?.let {
-            Snackbar.make(it, "issueId :$issueId", Snackbar.LENGTH_LONG).show()
+
+        viewModel.also { it ->
+            it.issueId.value = issueId
+            it.issueDetail.observe(this, Observer {
+                binding.issueDetail = it.data
+            })
         }
     }
 

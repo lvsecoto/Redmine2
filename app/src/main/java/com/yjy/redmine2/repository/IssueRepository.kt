@@ -31,6 +31,15 @@ class IssueRepository(
             }
         )
 
+    fun getIssueDetail(issueId: Int) = queue(
+        listOf(
+            getIssueEntity(issueId)
+        ),
+        Transformations.map(appDatabase.issuesDao.getIssueDetail(issueId)) {
+            Resource.success(it)
+        }
+    )
+
     private val issueEntities
         get() = object : NetworkBoundResource<List<IssueEntity>, IssuesResponse>() {
             override fun saveCallResult(item: IssuesResponse) {
@@ -58,7 +67,7 @@ class IssueRepository(
 
         }.asLiveData()
 
-    private fun getIssueEntity(issueId: Int) =
+    private fun getIssueEntity(issueId: Int, isDirty: Boolean = false) =
         object : NetworkBoundResource<IssueEntity, IssueResponse>() {
             override fun saveCallResult(item: IssueResponse) {
                 appDatabase.issuesDao.insertIssueEntities(listOf(
@@ -76,7 +85,7 @@ class IssueRepository(
                 ))
             }
 
-            override fun shouldFetch(data: IssueEntity?): Boolean = true
+            override fun shouldFetch(data: IssueEntity?): Boolean = isDirty
 
             override fun loadFromDb(): LiveData<IssueEntity> =
                 appDatabase.issuesDao.getIssueEntity(issueId)
@@ -126,5 +135,5 @@ class IssueRepository(
     fun solveIssue(issueId: Int, statusId: Int) =
             queue(listOf(
                 updateIssueStatus(issueId, statusId)
-            ), getIssueEntity(issueId))
+            ), getIssueEntity(issueId, true))
 }

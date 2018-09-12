@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
+import com.yjy.redmine2.repository.model.IssueDetail
 import com.yjy.redmine2.repository.model.IssueInList
 
 @Dao
@@ -54,4 +55,13 @@ abstract class IssuesDao {
     )
     abstract fun getIssuesInList(): LiveData<List<IssueInList>>
 
+    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Query(
+        """
+        SELECT issueId, subject
+        FROM issue
+        WHERE issueId == :issueId
+        """
+    )
+    abstract fun getIssueDetail(issueId: Int): LiveData<IssueDetail>
 }
