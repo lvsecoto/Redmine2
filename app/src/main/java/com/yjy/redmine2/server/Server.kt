@@ -2,10 +2,7 @@ package com.yjy.redmine2.server
 
 import androidx.lifecycle.LiveData
 import com.yjy.redmine2.common.ApiResponse
-import com.yjy.redmine2.server.model.IssueResponse
-import com.yjy.redmine2.server.model.IssuesResponse
-import com.yjy.redmine2.server.model.StatusesResponse
-import com.yjy.redmine2.server.model.UpdateIssueStatusRequest
+import com.yjy.redmine2.server.model.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
@@ -25,4 +22,7 @@ interface Server {
     @PUT("issues/{issue_id}.json")
     fun updateIssueStatus(@Path("issue_id") issueId: Int, @Body() updateIssueStatusRequest: UpdateIssueStatusRequest)
             : LiveData<ApiResponse<Void>>
+
+    @PUT("issues/{issue_id}.json?include=attachments")
+    fun getAttachments(issueId: Int): LiveData<ApiResponse<AttachmentsResponse>>
 }

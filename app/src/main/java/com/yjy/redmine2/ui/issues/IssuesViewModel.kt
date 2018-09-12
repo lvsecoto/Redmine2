@@ -17,7 +17,7 @@ class IssuesViewModel(
 
     private val issueRepository = IssueRepository(AppDatabase.getInstance(application))
 
-    val issues = issueRepository.issuesInList
+    val issues = issueRepository.getIssuesInList()
 
     private val solveIssueId  = MutableLiveData<IssueInList>()
     val solvedIssue: LiveData<Resource<IssueEntity>> = Transformations.switchMap(solveIssueId) {

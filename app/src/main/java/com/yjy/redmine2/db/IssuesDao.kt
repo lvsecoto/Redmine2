@@ -2,6 +2,7 @@ package com.yjy.redmine2.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.yjy.redmine2.db.model.AttachmentEntity
 import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
 import com.yjy.redmine2.repository.model.IssueDetail
@@ -64,4 +65,29 @@ abstract class IssuesDao {
         """
     )
     abstract fun getIssueDetail(issueId: Int): LiveData<IssueDetail>
+
+    @Query(
+        """
+        SELECT *
+        FROM attachment
+        """
+    )
+    abstract fun getAttachments(): LiveData<List<AttachmentEntity>>
+
+    @Insert
+    abstract fun insertAttachment(attachmentEntities: List<AttachmentEntity>)
+
+    @Query(
+        """
+        DELETE
+        FROM attachment
+        WHERE issueId == issueId
+        """
+    )
+    abstract fun deleteAttachmentByIssueId(issueId: Int)
+
+    @Transaction
+    open fun insertAndDeleteAttachments(issueId: Int, attachmentEntities: List<AttachmentEntity>) {
+        insertStatuesEntities()
+    }
 }

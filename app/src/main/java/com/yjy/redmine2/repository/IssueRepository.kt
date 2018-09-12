@@ -8,28 +8,25 @@ import com.yjy.redmine2.common.NetworkBoundResource
 import com.yjy.redmine2.common.Resource
 import com.yjy.redmine2.common.livedata.queue
 import com.yjy.redmine2.db.AppDatabase
+import com.yjy.redmine2.db.model.AttachmentEntity
 import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
 import com.yjy.redmine2.server.Retrofit.server
-import com.yjy.redmine2.server.model.IssueResponse
-import com.yjy.redmine2.server.model.IssuesResponse
-import com.yjy.redmine2.server.model.StatusesResponse
-import com.yjy.redmine2.server.model.UpdateIssueStatusRequest
+import com.yjy.redmine2.server.model.*
 
 class IssueRepository(
     val appDatabase: AppDatabase
 ) {
 
-    val issuesInList
-        get() = queue(
-            listOf(
-                statusEntities,
-                issueEntities
-            ),
-            Transformations.map(appDatabase.issuesDao.getIssuesInList()) {
-                Resource.success(it)
-            }
-        )
+    fun getIssuesInList() = queue(
+        listOf(
+            statusEntities,
+            getIssueEntities()
+        ),
+        Transformations.map(appDatabase.issuesDao.getIssuesInList()) {
+            Resource.success(it)
+        }
+    )
 
     fun getIssueDetail(issueId: Int) = queue(
         listOf(
@@ -40,8 +37,8 @@ class IssueRepository(
         }
     )
 
-    private val issueEntities
-        get() = object : NetworkBoundResource<List<IssueEntity>, IssuesResponse>() {
+    private fun getIssueEntities() =
+        object : NetworkBoundResource<List<IssueEntity>, IssuesResponse>() {
             override fun saveCallResult(item: IssuesResponse) {
                 appDatabase.issuesDao.deleteAndInsertIssueEntities(
                     item.issues.map {
@@ -93,6 +90,22 @@ class IssueRepository(
             override fun createCall(): LiveData<ApiResponse<IssueResponse>> =
                 server.getIssue(issueId)
         }.asLiveData()
+
+    private fun getIssueEntityWithAttachments(issueId: Int) =
+        object : NetworkBoundResource<List<AttachmentEntity>, AttachmentsResponse>() {
+            override fun saveCallResult(item: AttachmentsResponse) {
+                appDatabase.issuesDao.insertAndDeleteAttachments(issueId)
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun shouldFetch(data: List<AttachmentEntity>?): Boolean = true
+
+            override fun loadFromDb(): LiveData<List<AttachmentEntity>> =
+                appDatabase.issuesDao.getAttachments()
+
+            override fun createCall(): LiveData<ApiResponse<AttachmentsResponse>> =
+                server.getAttachments(issueId)
+        }
 
     private val statusEntities
         get() = object : NetworkBoundResource<List<StatusEntity>, StatusesResponse>() {
