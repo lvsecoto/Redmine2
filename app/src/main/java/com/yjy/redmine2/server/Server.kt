@@ -23,6 +23,6 @@ interface Server {
     fun updateIssueStatus(@Path("issue_id") issueId: Int, @Body() updateIssueStatusRequest: UpdateIssueStatusRequest)
             : LiveData<ApiResponse<Void>>
 
-    @PUT("issues/{issue_id}.json?include=attachments")
+    @GET("issues/{issue_id}.json?include=attachments")
     fun getAttachments(@Path("issue_id") issueId: Int): LiveData<ApiResponse<AttachmentsResponse>>
 }

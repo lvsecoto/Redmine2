@@ -101,7 +101,9 @@ class IssueRepository(
                         AttachmentEntity(
                             attachmentId = it.id,
                             issueId = issueId,
-                            contentUrl = it.content_url
+                            contentUrl = it.content_url,
+                            fileName = it.filename,
+                            authorName = it.author.name
                         )
                     })
             }

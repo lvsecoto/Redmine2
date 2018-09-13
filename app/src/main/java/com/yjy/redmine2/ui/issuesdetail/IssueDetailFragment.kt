@@ -24,11 +24,15 @@ class IssueDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentIssueDetailBinding
 
+    private val attachmentAdapter = AttachmentAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_issue_detail, container, false)
+        binding.pic.adapter = attachmentAdapter
+        binding.pic.addItemDecoration(ItemDecoration())
         return binding.root
     }
 
@@ -44,7 +48,10 @@ class IssueDetailFragment : Fragment() {
                 when(it.status) {
                     Status.LOADING -> binding.issueDetail = it.data
                     Status.ERROR -> showToast(it.message)
-                    Status.SUCCESS -> binding.issueDetail = it.data
+                    Status.SUCCESS -> {
+                        binding.issueDetail = it.data
+                        attachmentAdapter.submitList(it.data?.attachments)
+                    }
                 }
             })
         }

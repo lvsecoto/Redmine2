@@ -13,13 +13,15 @@ data class IssueDetail(
         entity = AttachmentEntity::class,
         parentColumn = "issueId",
         entityColumn = "issueId",
-        projection = ["contentUrl"]
+        projection = ["contentUrl", "fileName", "authorName"]
     )
     var attachments = emptyList<Attachment>()
 
     companion object {
         data class Attachment(
-            val contentUrl: String
+            val contentUrl: String,
+            val fileName: String,
+            val authorName: String
         )
     }
 }
