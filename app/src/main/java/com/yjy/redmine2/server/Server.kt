@@ -24,5 +24,5 @@ interface Server {
             : LiveData<ApiResponse<Void>>
 
     @PUT("issues/{issue_id}.json?include=attachments")
-    fun getAttachments(issueId: Int): LiveData<ApiResponse<AttachmentsResponse>>
+    fun getAttachments(@Path("issue_id") issueId: Int): LiveData<ApiResponse<AttachmentsResponse>>
 }

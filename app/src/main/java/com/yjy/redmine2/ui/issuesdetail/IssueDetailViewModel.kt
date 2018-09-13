@@ -8,7 +8,7 @@ import com.yjy.redmine2.db.AppDatabase
 import com.yjy.redmine2.repository.IssueRepository
 
 class IssueDetailViewModel(application: Application) : AndroidViewModel(application) {
-    val issueRepository = IssueRepository(AppDatabase.getInstance(application))
+    private val issueRepository = IssueRepository(AppDatabase.getInstance(application))
 
     val issueId : MutableLiveData<Int> = MutableLiveData()
 

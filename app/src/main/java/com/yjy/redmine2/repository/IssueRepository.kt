@@ -30,7 +30,8 @@ class IssueRepository(
 
     fun getIssueDetail(issueId: Int) = queue(
         listOf(
-            getIssueEntity(issueId)
+            getIssueEntity(issueId),
+            getAttachments(issueId)
         ),
         Transformations.map(appDatabase.issuesDao.getIssueDetail(issueId)) {
             Resource.success(it)
@@ -91,11 +92,18 @@ class IssueRepository(
                 server.getIssue(issueId)
         }.asLiveData()
 
-    private fun getIssueEntityWithAttachments(issueId: Int) =
+    private fun getAttachments(issueId: Int) =
         object : NetworkBoundResource<List<AttachmentEntity>, AttachmentsResponse>() {
             override fun saveCallResult(item: AttachmentsResponse) {
-                appDatabase.issuesDao.insertAndDeleteAttachments(issueId)
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                appDatabase.issuesDao.insertAndDeleteAttachments(issueId,
+                    item.issue.attachments
+                        .map {
+                        AttachmentEntity(
+                            attachmentId = it.id,
+                            issueId = issueId,
+                            contentUrl = it.content_url
+                        )
+                    })
             }
 
             override fun shouldFetch(data: List<AttachmentEntity>?): Boolean = true
@@ -105,7 +113,7 @@ class IssueRepository(
 
             override fun createCall(): LiveData<ApiResponse<AttachmentsResponse>> =
                 server.getAttachments(issueId)
-        }
+        }.asLiveData()
 
     private val statusEntities
         get() = object : NetworkBoundResource<List<StatusEntity>, StatusesResponse>() {

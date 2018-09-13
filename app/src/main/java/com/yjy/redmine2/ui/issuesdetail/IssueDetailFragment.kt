@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.yjy.redmine2.R
+import com.yjy.redmine2.common.Status
 import com.yjy.redmine2.databinding.FragmentIssueDetailBinding
+import com.yjy.redmine2.ui.issues.showToast
 
 
 class IssueDetailFragment : Fragment() {
@@ -39,7 +41,11 @@ class IssueDetailFragment : Fragment() {
         viewModel.also { it ->
             it.issueId.value = issueId
             it.issueDetail.observe(this, Observer {
-                binding.issueDetail = it.data
+                when(it.status) {
+                    Status.LOADING -> binding.issueDetail = it.data
+                    Status.ERROR -> showToast(it.message)
+                    Status.SUCCESS -> binding.issueDetail = it.data
+                }
             })
         }
     }

@@ -4,13 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.yjy.redmine2.db.model.AttachmentEntity
 import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
 
 @Database(entities = [
     IssueEntity::class,
-    StatusEntity::class
-], version = 1)
+    StatusEntity::class,
+    AttachmentEntity::class
+], version = 1, exportSchema = false)
 abstract class AppDatabase :RoomDatabase(), DaoComponent {
 
     companion object {

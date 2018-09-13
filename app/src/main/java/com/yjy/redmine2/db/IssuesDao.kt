@@ -57,6 +57,7 @@ abstract class IssuesDao {
     abstract fun getIssuesInList(): LiveData<List<IssueInList>>
 
     @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
+    @Transaction
     @Query(
         """
         SELECT issueId, subject
@@ -81,13 +82,14 @@ abstract class IssuesDao {
         """
         DELETE
         FROM attachment
-        WHERE issueId == issueId
+        WHERE issueId == :issueId
         """
     )
     abstract fun deleteAttachmentByIssueId(issueId: Int)
 
     @Transaction
     open fun insertAndDeleteAttachments(issueId: Int, attachmentEntities: List<AttachmentEntity>) {
-        insertStatuesEntities()
+        deleteAttachmentByIssueId(issueId)
+        insertAttachment(attachmentEntities)
     }
 }
