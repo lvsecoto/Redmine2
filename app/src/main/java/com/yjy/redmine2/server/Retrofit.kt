@@ -2,7 +2,7 @@ package com.yjy.redmine2.server
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.yjy.redmine2.common.LiveDataCallAdapterFactory
+import com.yjy.redmine2.common.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.DateFormat
 
 object Retrofit {
-    val server : Server
+    val server: Server
 
     init {
         val client = OkHttpClient()
@@ -18,8 +18,8 @@ object Retrofit {
             .addInterceptor { chain: Interceptor.Chain? ->
                 val origin = chain!!.request()
                 val request = origin.newBuilder()
-                    .addHeader("X-Redmine-Switch-User", "YuanJunYao")
-                    .addHeader("X-Redmine-API-Key", "a5564509fcbcf7c4e437d81789df36b05b9eb823")
+                    .addHeader(HEADER_KEY_X_REDMINE_SWITCH_USER, USER_NAME)
+                    .addHeader(HEADER_KEY_X_REDMINE_API_KEY, USER_API_KEY)
                     .method(origin.method(), origin.body())
                     .build()
                 chain.proceed(request)
