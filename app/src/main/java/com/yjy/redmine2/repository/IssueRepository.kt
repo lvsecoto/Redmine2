@@ -7,6 +7,7 @@ import com.yjy.redmine2.common.ApiResponse
 import com.yjy.redmine2.common.NetworkBoundResource
 import com.yjy.redmine2.common.Resource
 import com.yjy.redmine2.common.livedata.queue
+import com.yjy.redmine2.common.livedata.queueApi
 import com.yjy.redmine2.db.AppDatabase
 import com.yjy.redmine2.db.model.AttachmentEntity
 import com.yjy.redmine2.db.model.IssueEntity
@@ -28,14 +29,10 @@ class IssueRepository(
         }
     )
 
-    fun getIssueDetail(issueId: Int) = queue(
-        listOf(
-            getIssueEntity(issueId),
-            getAttachments(issueId)
-        ),
-        Transformations.map(appDatabase.issuesDao.getIssueDetail(issueId)) {
-            Resource.success(it)
-        }
+    fun getIssueDetail(issueId: Int) = queueApi(
+        appDatabase.issuesDao.getIssueDetail(issueId),
+        getIssueEntity(issueId),
+        getAttachments(issueId)
     )
 
     private fun getIssueEntities() =

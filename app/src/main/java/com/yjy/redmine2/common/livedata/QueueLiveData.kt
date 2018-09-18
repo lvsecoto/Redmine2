@@ -9,7 +9,11 @@ import com.yjy.redmine2.common.Status
 /**
  * 等[sources]逐个LiveData返回的是True，再最终订阅到[result]
  */
-fun <T, R> queue(sources: List<LiveData<out Resource<T>>>, result: LiveData<Resource<R>>): LiveData<Resource<R>> =
+@Deprecated("")
+fun <T, R> queue(
+    sources: List<LiveData<out Resource<T>>>,
+    result: LiveData<Resource<R>>
+): LiveData<Resource<R>> =
     object : MediatorLiveData<Resource<R>>() {
 
         private val iterator: ListIterator<LiveData<out Resource<T>>> = sources.listIterator()
@@ -23,9 +27,9 @@ fun <T, R> queue(sources: List<LiveData<out Resource<T>>>, result: LiveData<Reso
 
             source = iterator.next()
 
-            addSource(source, object : Observer< Resource<T>> {
+            addSource(source, object : Observer<Resource<T>> {
                 override fun onChanged(sourceResult: Resource<T>) =// 当前返回的是true才订阅下一个
-                    when(sourceResult.status) {
+                    when (sourceResult.status) {
                         Status.LOADING -> {
 
                         }
@@ -52,6 +56,48 @@ fun <T, R> queue(sources: List<LiveData<out Resource<T>>>, result: LiveData<Reso
                             )
                         }
                     }
+            })
+        }
+    }
+
+fun <R, T> queueApi(fromDB: LiveData<R>, vararg calls: LiveData<out Resource<T>>) =
+    object : MediatorLiveData<Resource<R>>() {
+        private val callIterator = calls.iterator()
+        private var source = callIterator.next()
+
+        init {
+            value = Resource.loading(null)
+            addSource(fromDB) {
+                value = Resource.loading(it)
+            }
+
+            addSource(source, object : Observer<Resource<T>> {
+                override fun onChanged(callResult: Resource<T>?) {
+                    when (callResult?.status) {
+                        Status.LOADING -> {
+
+                        }
+                        Status.SUCCESS -> {
+                            removeSource(source)
+                            if (callIterator.hasNext()) {
+                                source = callIterator.next()
+                                addSource(source, this)
+                            } else {
+                                removeSource(fromDB)
+                                addSource(fromDB) {
+                                    value = Resource.success(it)
+                                }
+                            }
+                        }
+                        Status.ERROR -> {
+                            removeSource(source)
+                            removeSource(fromDB)
+                            addSource(fromDB) {
+                                value = Resource.error(callResult.message ?: "", it)
+                            }
+                        }
+                    }
+                }
             })
         }
     }
