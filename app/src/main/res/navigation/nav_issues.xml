@@ -8,10 +8,16 @@
     <fragment
         android:id="@+id/issuesFragment"
         android:name="com.yjy.redmine2.ui.issues.IssuesFragment"
-        android:label="IssuesFragment" >
+        android:label="IssuesFragment"
+        tools:layout="@layout/fragment_issues" >
+
         <action
             android:id="@+id/action_view_issue_detail"
-            app:destination="@id/issueDetailFragment"/>
+            app:destination="@id/issueDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment

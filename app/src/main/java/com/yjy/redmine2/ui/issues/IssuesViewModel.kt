@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.yjy.redmine2.common.Resource
 import com.yjy.redmine2.db.AppDatabase
-import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.repository.IssueRepository
 import com.yjy.redmine2.repository.model.IssueInList
 
@@ -20,7 +19,7 @@ class IssuesViewModel(
     val issues = issueRepository.getIssuesInList()
 
     private val solveIssueId  = MutableLiveData<IssueInList>()
-    val solvedIssue: LiveData<Resource<IssueEntity>> = Transformations.switchMap(solveIssueId) {
+    val solvedIssue: LiveData<Resource<Any>> = Transformations.switchMap(solveIssueId) {
         when(it.statusId) {
             3 -> issueRepository.solveIssue(it.issueId, 2)
             else -> issueRepository.solveIssue(it.issueId, 3)

@@ -9,10 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.yjy.redmine2.R
 import com.yjy.redmine2.common.Status
 import com.yjy.redmine2.databinding.FragmentIssuesBinding
@@ -45,28 +41,28 @@ class IssuesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssuesViewModel::class.java)
 
-        adapter = IssuesAdapter(
-            viewModel = viewModel
-        ).apply {
+        adapter = IssuesAdapter(viewModel).also {
+            binding.issues.adapter = it
         }
-        binding.issues.adapter = adapter
-        viewModel.issues.observe(this, Observer {
-            when (it.status) {
-                Status.ERROR -> showToast(it.message)
-                else -> {
-                    adapter.submitList(it.data)
-                }
-            }
-        })
-        viewModel.solvedIssue.observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> showToast("Solve issue ${it.data?.issueId}")
-                Status.ERROR -> showToast(it.message)
-                Status.LOADING -> showToast("wait")
-            }
-        })
-    }
 
+        viewModel.run {
+            issues.observe(viewLifecycleOwner, Observer {
+                adapter.submitList(it.data)
+                when (it.status) {
+                    Status.ERROR -> showToast(it.message)
+                    else -> {
+                    }
+                }
+            })
+            solvedIssue.observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> showToast("Solved issue")
+                    Status.ERROR -> showToast(it.message)
+                    Status.LOADING -> showToast("wait")
+                }
+            })
+        }
+    }
 }
 
 fun Fragment.showToast(toast: String?) {

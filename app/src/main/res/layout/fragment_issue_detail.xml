@@ -31,6 +31,7 @@
             android:background="@null">
 
             <include layout="@layout/view_issue_detail"
+                android:id="@+id/issues_detail_binding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 bind:issueDetail="@{issueDetail}"

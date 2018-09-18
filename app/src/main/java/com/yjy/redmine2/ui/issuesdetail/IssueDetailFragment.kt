@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SpinnerAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -24,14 +25,14 @@ class IssueDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentIssueDetailBinding
 
-    private val attachmentAdapter = AttachmentAdapter()
+    private lateinit var attachmentAdapter : AttachmentAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_issue_detail, container, false)
-        binding.pic.adapter = attachmentAdapter
+        binding =
+                DataBindingUtil.inflate(inflater, R.layout.fragment_issue_detail, container, false)
         binding.pic.addItemDecoration(ItemDecoration())
         return binding.root
     }
@@ -40,19 +41,26 @@ class IssueDetailFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(IssueDetailViewModel::class.java)
 
-        val issueId = IssueDetailFragmentArgs.fromBundle(arguments).issueId
+        attachmentAdapter = AttachmentAdapter().also {
+            binding.pic.adapter = it
+        }
 
-        viewModel.also { it ->
-            it.issueId.value = issueId
-            it.issueDetail.observe(this, Observer {
-                when(it.status) {
-                    Status.LOADING -> binding.issueDetail = it.data
+        viewModel.run {
+            val argIssueId = IssueDetailFragmentArgs.fromBundle(arguments).issueId
+            issueId.value = argIssueId
+
+            issueDetail.observe(viewLifecycleOwner, Observer {
+                binding.issueDetail = it.data
+                attachmentAdapter.submitList(it.data?.attachments)
+                when (it.status) {
                     Status.ERROR -> showToast(it.message)
-                    Status.SUCCESS -> {
-                        binding.issueDetail = it.data
-                        attachmentAdapter.submitList(it.data?.attachments)
+                    else -> {
                     }
                 }
+            })
+            statuses.observe(viewLifecycleOwner, Observer {
+                binding.issuesDetailBinding.status
+                SpinnerAdapter
             })
         }
     }

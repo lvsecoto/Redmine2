@@ -1,12 +1,9 @@
 package com.yjy.redmine2.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import com.yjy.redmine2.common.AbsentLiveData
 import com.yjy.redmine2.common.ApiResponse
 import com.yjy.redmine2.common.NetworkBoundResource
-import com.yjy.redmine2.common.Resource
-import com.yjy.redmine2.common.livedata.queue
 import com.yjy.redmine2.common.livedata.queueApi
 import com.yjy.redmine2.db.AppDatabase
 import com.yjy.redmine2.db.model.AttachmentEntity
@@ -19,14 +16,10 @@ class IssueRepository(
     val appDatabase: AppDatabase
 ) {
 
-    fun getIssuesInList() = queue(
-        listOf(
-            statusEntities,
-            getIssueEntities()
-        ),
-        Transformations.map(appDatabase.issuesDao.getIssuesInList()) {
-            Resource.success(it)
-        }
+    fun getIssuesInList() = queueApi(
+        appDatabase.issuesDao.getIssuesInList(),
+        getStatusEntities(),
+        getIssueEntities()
     )
 
     fun getIssueDetail(issueId: Int) = queueApi(
@@ -95,14 +88,14 @@ class IssueRepository(
                 appDatabase.issuesDao.insertAndDeleteAttachments(issueId,
                     item.issue.attachments
                         .map {
-                        AttachmentEntity(
-                            attachmentId = it.id,
-                            issueId = issueId,
-                            contentUrl = it.content_url,
-                            fileName = it.filename,
-                            authorName = it.author.name
-                        )
-                    })
+                            AttachmentEntity(
+                                attachmentId = it.id,
+                                issueId = issueId,
+                                contentUrl = it.content_url,
+                                fileName = it.filename,
+                                authorName = it.author.name
+                            )
+                        })
             }
 
             override fun shouldFetch(data: List<AttachmentEntity>?): Boolean = true
@@ -114,8 +107,8 @@ class IssueRepository(
                 server.getAttachments(issueId)
         }.asLiveData()
 
-    private val statusEntities
-        get() = object : NetworkBoundResource<List<StatusEntity>, StatusesResponse>() {
+    fun getStatusEntities() =
+        object : NetworkBoundResource<List<StatusEntity>, StatusesResponse>() {
 
             override fun saveCallResult(item: StatusesResponse) {
                 appDatabase.issuesDao.insertStatuesEntities(
@@ -153,7 +146,9 @@ class IssueRepository(
         }.asLiveData()
 
     fun solveIssue(issueId: Int, statusId: Int) =
-            queue(listOf(
-                updateIssueStatus(issueId, statusId)
-            ), getIssueEntity(issueId, true))
+        queueApi(
+            AbsentLiveData.create<Any>(),
+            updateIssueStatus(issueId, statusId),
+            getIssueEntity(issueId, true)
+        )
 }
