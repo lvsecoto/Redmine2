@@ -50,16 +50,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/space"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/background_project" />
+            app:layout_constraintTop_toBottomOf="@+id/background_project"
+            app:layout_constraintVertical_bias="0.0">
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/label_subject"
@@ -73,6 +79,15 @@
             android:textColor="@android:color/primary_text_light"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/project_name" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            tools:layout_editor_absoluteY="220dp" />
 
         <TextView
             android:id="@+id/subject"
@@ -92,64 +107,43 @@
             app:layout_constraintTop_toBottomOf="@+id/label_subject"
             tools:text="Merchangt setting 页面，Logo图片点第二次以后没有反应， cover drawing 同样问题" />
 
-        <TextView
-            android:id="@+id/label_assign_to"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/assign_to"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/colorPrimary"
             android:elevation="2dp"
-            android:text="Assign To:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:layout_constraintStart_toStartOf="@+id/assign_to"
+            android:text="指派给：袁俊耀"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subject" />
 
-        <Spinner
-            android:id="@+id/assign_to"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:elevation="2dp"
-            android:entries="@android:array/phoneTypes"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toStartOf="@+id/status"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_assign_to" />
-
-        <TextView
-            android:id="@+id/label_status"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/status"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/colorPrimary"
             android:elevation="2dp"
-            android:text="Status:"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-            app:layout_constraintStart_toStartOf="@+id/status"
-            app:layout_constraintTop_toTopOf="@+id/label_assign_to" />
-
-        <Spinner
-            android:id="@+id/status"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:elevation="2dp"
-            android:entries="@android:array/phoneTypes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/assign_to"
-            app:layout_constraintTop_toBottomOf="@+id/label_status" />
+            app:iconGravity="textStart"
+            app:layout_constraintBaseline_toBaselineOf="@+id/assign_to"
+            app:layout_constraintEnd_toStartOf="@+id/assign_to"
+            tools:text="状态：完成" />
 
         <Space
             android:id="@+id/space"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/assign_to" />
+            app:layout_constraintTop_toBottomOf="@+id/assign_to"
+            tools:layout_editor_absoluteY="367dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
