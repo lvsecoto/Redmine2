@@ -29,7 +29,7 @@
             android:name="issue_id"
             app:argType="integer" />
         <action
-            android:id="@+id/issue_status"
+            android:id="@+id/action_change_issue_status"
             app:destination="@id/issueStatusFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

@@ -6,3 +6,5 @@ const val REDMINE_HOST = "redmine.jbangit.com"
 
 const val HEADER_KEY_X_REDMINE_SWITCH_USER = "X-Redmine-Switch-User"
 const val HEADER_KEY_X_REDMINE_API_KEY = "X-Redmine-API-Key"
+
+const val ID_NULL = -1

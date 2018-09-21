@@ -28,6 +28,11 @@ class IssueRepository(
         getAttachments(issueId)
     )
 
+    fun getStatusesInList() = queueApi(
+        appDatabase.issuesDao.getStatusesInList(),
+        getStatusEntities()
+    )
+
     private fun getIssueEntities() =
         object : NetworkBoundResource<List<IssueEntity>, IssuesResponse>() {
             override fun saveCallResult(item: IssuesResponse) {
@@ -107,7 +112,7 @@ class IssueRepository(
                 server.getAttachments(issueId)
         }.asLiveData()
 
-    fun getStatusEntities() =
+    private fun getStatusEntities() =
         object : NetworkBoundResource<List<StatusEntity>, StatusesResponse>() {
 
             override fun saveCallResult(item: StatusesResponse) {
@@ -151,4 +156,8 @@ class IssueRepository(
             updateIssueStatus(issueId, statusId),
             getIssueEntity(issueId, true)
         )
+
+    fun changeStatus(value: Int, statusId: Int) {
+
+    }
 }

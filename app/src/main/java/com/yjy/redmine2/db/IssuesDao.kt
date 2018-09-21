@@ -7,6 +7,7 @@ import com.yjy.redmine2.db.model.IssueEntity
 import com.yjy.redmine2.db.model.StatusEntity
 import com.yjy.redmine2.repository.model.IssueDetail
 import com.yjy.redmine2.repository.model.IssueInList
+import com.yjy.redmine2.repository.model.StatusInList
 
 @Dao
 abstract class IssuesDao {
@@ -92,4 +93,10 @@ abstract class IssuesDao {
         deleteAttachmentByIssueId(issueId)
         insertAttachment(attachmentEntities)
     }
+
+    @Query("""
+        SELECT statusId, name FROM status
+    """)
+    abstract fun getStatusesInList(): LiveData<List<StatusInList>>
+
 }
