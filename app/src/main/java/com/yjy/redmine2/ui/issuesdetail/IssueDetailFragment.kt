@@ -15,6 +15,7 @@ import com.yjy.redmine2.common.Status
 import com.yjy.redmine2.common.utils.showToast
 import com.yjy.redmine2.databinding.FragmentIssueDetailBinding
 import com.yjy.redmine2.ui.issuesdetail.IssueDetailFragmentDirections.actionChangeIssueStatus
+import kotlinx.android.synthetic.main.fragment_issue_detail.*
 
 
 class IssueDetailFragment : Fragment() {
@@ -26,8 +27,6 @@ class IssueDetailFragment : Fragment() {
     private lateinit var viewModel: IssueDetailViewModel
 
     private lateinit var binding: FragmentIssueDetailBinding
-
-    private lateinit var attachmentAdapter: AttachmentAdapter
 
     private var argIssueId: Int = ID_NULL
 
@@ -43,14 +42,13 @@ class IssueDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(IssueDetailViewModel::class.java)
         argIssueId = IssueDetailFragmentArgs.fromBundle(arguments).issueId
 
-        attachmentAdapter = AttachmentAdapter().also {
-            binding.pic.adapter = it
-        }
+        viewModel = ViewModelProviders.of(this).get(IssueDetailViewModel::class.java)
+        val attachmentAdapter = AttachmentAdapter()
 
         binding.issuesDetailBinding.run {
+            pic.adapter = attachmentAdapter
             status.setOnClickListener {
                 findNavController().navigate(
                     R.id.action_change_issue_status,

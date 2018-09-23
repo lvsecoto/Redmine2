@@ -6,7 +6,9 @@ import com.yjy.redmine2.common.DataBoundListAdapter
 import com.yjy.redmine2.databinding.ViewItemIssueStatusBinding
 import com.yjy.redmine2.repository.model.StatusInList
 
-class StatusAdapter(private viewModel: IssueStatusViewModel) : DataBoundListAdapter<StatusInList, ViewItemIssueStatusBinding>(
+class StatusAdapter(
+    private val onClickItem: (StatusInList) -> Unit
+) : DataBoundListAdapter<StatusInList, ViewItemIssueStatusBinding>(
     object : DiffUtil.ItemCallback<StatusInList>() {
         override fun areItemsTheSame(
             oldItem: StatusInList,
@@ -27,5 +29,8 @@ class StatusAdapter(private viewModel: IssueStatusViewModel) : DataBoundListAdap
     override fun onBindData(binding: ViewItemIssueStatusBinding, item: StatusInList) {
         super.onBindData(binding, item)
         binding.status = item
+        binding.root.setOnClickListener {
+            onClickItem(item)
+        }
     }
 }

@@ -61,8 +61,9 @@ abstract class IssuesDao {
     @Transaction
     @Query(
         """
-        SELECT issueId, subject
+        SELECT issueId, subject, name as status
         FROM issue
+        JOIN status USING (statusId)
         WHERE issueId == :issueId
         """
     )
@@ -94,9 +95,11 @@ abstract class IssuesDao {
         insertAttachment(attachmentEntities)
     }
 
-    @Query("""
+    @Query(
+        """
         SELECT statusId, name FROM status
-    """)
+    """
+    )
     abstract fun getStatusesInList(): LiveData<List<StatusInList>>
 
 }

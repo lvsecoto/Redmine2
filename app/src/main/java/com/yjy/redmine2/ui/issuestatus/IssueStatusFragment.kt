@@ -8,7 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.yjy.redmine2.R
+import com.yjy.redmine2.common.Status
+import com.yjy.redmine2.common.utils.showToast
 import com.yjy.redmine2.databinding.IssueStatusFragmentBinding
 
 class IssueStatusFragment : Fragment() {
@@ -27,28 +31,47 @@ class IssueStatusFragment : Fragment() {
     ): View? {
         binding =
                 DataBindingUtil.inflate(inflater, R.layout.issue_status_fragment, container, false)
+        binding.toolbar.setupWithNavController(findNavController())
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(IssueStatusViewModel::class.java)
-        val statusAdapter = StatusAdapter(viewModel)
 
-        binding.run {
-
-            with(statuses) {
-                adapter = statusAdapter
+        val statusAdapter = StatusAdapter(
+            onClickItem = {
+                viewModel.changeStatus(it.statusId)
             }
+        )
 
-        }
-
-        viewModel.run {
+        viewModel = ViewModelProviders.of(this).get(IssueStatusViewModel::class.java).apply {
+            issueId.value = fromBundle().issueId
             issueStatus.observe(viewLifecycleOwner, Observer {
                 statusAdapter.submitList(it.data)
             })
+            changedIssueStatus.observe(viewLifecycleOwner, Observer {
+                when (it.status) {
+                    Status.SUCCESS -> {
+                        if (it.data != true) {
+                            showToast("修改失败")
+                        }
+                        findNavController().navigateUp()
+                    }
+                    Status.ERROR -> showToast(it.message)
+                    Status.LOADING -> {
+                    }
+                }
+            })
         }
-        // TODO: Use the ViewModel
+
+        binding.run {
+            with(statuses) {
+                adapter = statusAdapter
+            }
+        }
     }
+
+    private fun fromBundle() =
+        IssueStatusFragmentArgs.fromBundle(arguments)
 
 }

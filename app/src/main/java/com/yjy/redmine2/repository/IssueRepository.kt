@@ -150,14 +150,10 @@ class IssueRepository(
             }
         }.asLiveData()
 
-    fun solveIssue(issueId: Int, statusId: Int) =
+    fun changeIssueStatus(issueId: Int, statusId: Int) =
         queueApi(
-            AbsentLiveData.create<Any>(),
+            appDatabase.issuesDao.getIssueEntity(issueId),
             updateIssueStatus(issueId, statusId),
             getIssueEntity(issueId, true)
         )
-
-    fun changeStatus(value: Int, statusId: Int) {
-
-    }
 }

@@ -116,6 +116,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:elevation="2dp"
             android:text="指派给：袁俊耀"
+            app:cornerRadius="18dp"
             app:iconGravity="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/subject" />
@@ -128,10 +129,14 @@
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:elevation="2dp"
-            app:iconGravity="textStart"
+            android:text="@{issueDetail.status}"
+            app:icon="@drawable/ic_edit"
+            app:iconTint="@android:color/white"
+            app:iconSize="18dp"
+            app:cornerRadius="18dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/assign_to"
             app:layout_constraintEnd_toStartOf="@+id/assign_to"
-            tools:text="状态：完成" />
+            tools:text="完成" />
 
         <Space
             android:id="@+id/space"
