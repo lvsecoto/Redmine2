@@ -9,7 +9,7 @@
 
         <variable
             name="issueDetail"
-            type="com.yjy.redmine2.repository.model.IssueDetail" />
+            type="com.lvsecoto.redmine2.repository.model.IssueDetail" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

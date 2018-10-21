@@ -6,7 +6,7 @@
     <data>
         <variable
             name="attachment"
-            type="com.yjy.redmine2.repository.model.IssueDetail.Companion.Attachment"/>
+            type="com.lvsecoto.redmine2.repository.model.IssueDetail.Companion.Attachment"/>
     </data>
 
     <androidx.cardview.widget.CardView

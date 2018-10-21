@@ -7,11 +7,11 @@
 
         <variable
             name="status"
-            type="com.yjy.redmine2.repository.model.StatusInList"/>
+            type="com.lvsecoto.redmine2.repository.model.StatusInList"/>
 
         <variable
             name="viewModel"
-            type="com.yjy.redmine2.ui.issuestatus.IssueStatusViewModel"/>
+            type="com.lvsecoto.redmine2.ui.issuestatus.IssueStatusViewModel"/>
 
     </data>
 

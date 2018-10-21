@@ -6,11 +6,11 @@
     <data>
         <variable
             name="issue"
-            type="com.yjy.redmine2.repository.model.IssueInList"/>
+            type="com.lvsecoto.redmine2.repository.model.IssueInList"/>
 
         <variable
             name="viewModel"
-            type="com.yjy.redmine2.ui.issues.IssuesViewModel"/>
+            type="com.lvsecoto.redmine2.ui.issues.IssuesViewModel"/>
 
         <variable
             name="onClickItem"
