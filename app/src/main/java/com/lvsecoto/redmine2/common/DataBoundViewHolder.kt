@@ -1,4 +1,4 @@
-package com.yjy.redmine2.common
+package com.lvsecoto.redmine2.common
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView

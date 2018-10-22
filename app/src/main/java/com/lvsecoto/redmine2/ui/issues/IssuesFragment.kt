@@ -1,4 +1,4 @@
-package com.yjy.redmine2.ui.issues
+package com.lvsecoto.redmine2.ui.issues
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,10 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.yjy.redmine2.R
-import com.yjy.redmine2.common.Status
-import com.yjy.redmine2.common.utils.showToast
-import com.yjy.redmine2.databinding.FragmentIssuesBinding
+import com.lvsecoto.liveobserver.Status
+import com.lvsecoto.redmine2.R
+import com.lvsecoto.redmine2.common.utils.showToast
+import com.lvsecoto.redmine2.databinding.FragmentIssuesBinding
 
 class IssuesFragment : Fragment() {
 

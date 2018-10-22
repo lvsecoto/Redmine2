@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.common
+package com.lvsecoto.redmine2.common
 
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import com.yjy.redmine2.AppExecutors
+import com.lvsecoto.liveobserver.Resource
+import com.lvsecoto.redmine2.AppExecutors
 
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.

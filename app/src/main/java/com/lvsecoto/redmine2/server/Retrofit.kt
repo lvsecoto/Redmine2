@@ -1,8 +1,8 @@
-package com.yjy.redmine2.server
+package com.lvsecoto.redmine2.server
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.yjy.redmine2.common.*
+import com.lvsecoto.redmine2.common.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

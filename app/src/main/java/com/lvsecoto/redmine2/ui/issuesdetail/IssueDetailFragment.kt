@@ -1,4 +1,4 @@
-package com.yjy.redmine2.ui.issuesdetail
+package com.lvsecoto.redmine2.ui.issuesdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.yjy.redmine2.R
-import com.yjy.redmine2.common.ID_NULL
-import com.yjy.redmine2.common.Status
-import com.yjy.redmine2.common.utils.showToast
-import com.yjy.redmine2.databinding.FragmentIssueDetailBinding
-import com.yjy.redmine2.ui.issuesdetail.IssueDetailFragmentDirections.actionChangeIssueStatus
+import com.lvsecoto.liveobserver.Status
+import com.lvsecoto.redmine2.R
+import com.lvsecoto.redmine2.common.ID_NULL
+import com.lvsecoto.redmine2.common.utils.showToast
+import com.lvsecoto.redmine2.databinding.FragmentIssueDetailBinding
+import com.lvsecoto.redmine2.ui.issuesdetail.IssueDetailFragmentDirections.actionChangeIssueStatus
 import kotlinx.android.synthetic.main.fragment_issue_detail.*
 
 

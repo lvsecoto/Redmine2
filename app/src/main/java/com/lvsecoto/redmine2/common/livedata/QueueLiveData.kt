@@ -1,10 +1,10 @@
-package com.yjy.redmine2.common.livedata
+package com.lvsecoto.redmine2.common.livedata
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import com.yjy.redmine2.common.Resource
-import com.yjy.redmine2.common.Status
+import com.lvsecoto.liveobserver.Resource
+import com.lvsecoto.liveobserver.Status
 
 /**
  * 等[sources]逐个LiveData返回的是True，再最终订阅到[result]

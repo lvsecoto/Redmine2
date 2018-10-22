@@ -1,11 +1,11 @@
-package com.yjy.redmine2.ui.issues
+package com.lvsecoto.redmine2.ui.issues
 
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
-import com.yjy.redmine2.R
-import com.yjy.redmine2.common.DataBoundListAdapter
-import com.yjy.redmine2.databinding.ViewItemIssuesListBinding
-import com.yjy.redmine2.repository.model.IssueInList
+import com.lvsecoto.redmine2.R
+import com.lvsecoto.redmine2.common.DataBoundListAdapter
+import com.lvsecoto.redmine2.databinding.ViewItemIssuesListBinding
+import com.lvsecoto.redmine2.repository.model.IssueInList
 
 class IssuesAdapter(
     private val viewModel: IssuesViewModel

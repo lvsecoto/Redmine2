@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/issuesFragment"
-        android:name="com.yjy.redmine2.ui.issues.IssuesFragment"
+        android:name="com.lvsecoto.redmine2.ui.issues.IssuesFragment"
         android:label="IssuesFragment"
         tools:layout="@layout/fragment_issues" >
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/issueDetailFragment"
-        android:name="com.yjy.redmine2.ui.issuesdetail.IssueDetailFragment"
+        android:name="com.lvsecoto.redmine2.ui.issuesdetail.IssueDetailFragment"
         android:label="IssueDetailFragment"
         tools:layout="@layout/fragment_issue_detail" >
         <argument
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/issueStatusFragment"
-        android:name="com.yjy.redmine2.ui.issuestatus.IssueStatusFragment"
+        android:name="com.lvsecoto.redmine2.ui.issuestatus.IssueStatusFragment"
         android:label="issueStatusFragment"
         tools:layout="@layout/issue_status_fragment">
         <argument

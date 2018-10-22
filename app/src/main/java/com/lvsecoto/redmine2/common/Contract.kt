@@ -1,4 +1,4 @@
-package com.yjy.redmine2.common
+package com.lvsecoto.redmine2.common
 
 const val USER_NAME = "YuanJunYao"
 const val USER_API_KEY = "a5564509fcbcf7c4e437d81789df36b05b9eb823"

@@ -1,4 +1,4 @@
-package com.yjy.redmine2.common
+package com.lvsecoto.redmine2.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

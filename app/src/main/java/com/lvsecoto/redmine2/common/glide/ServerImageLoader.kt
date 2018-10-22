@@ -1,9 +1,9 @@
-package com.yjy.redmine2.common.glide
+package com.lvsecoto.redmine2.common.glide
 
 import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.model.*
 import com.bumptech.glide.load.model.stream.BaseGlideUrlLoader
-import com.yjy.redmine2.common.*
+import com.lvsecoto.redmine2.common.*
 import java.io.InputStream
 
 class ServerImageLoader(

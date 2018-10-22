@@ -1,4 +1,4 @@
-package com.yjy.redmine2.common.glide
+package com.lvsecoto.redmine2.common.glide
 
 import android.content.Context
 import com.bumptech.glide.Glide

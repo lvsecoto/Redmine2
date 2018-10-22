@@ -1,9 +1,9 @@
-package com.yjy.redmine2.ui.issuesdetail
+package com.lvsecoto.redmine2.ui.issuesdetail
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.yjy.redmine2.common.utils.fromDp
+import com.lvsecoto.redmine2.common.utils.fromDp
 
 class ItemDecoration : RecyclerView.ItemDecoration() {
 

@@ -1,4 +1,4 @@
-package com.yjy.redmine2.repository.model
+package com.lvsecoto.redmine2.repository.model
 
 data class IssueInList(
     val issueId: Int = -1,

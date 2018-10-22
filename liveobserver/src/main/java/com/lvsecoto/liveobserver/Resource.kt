@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.common
+package com.lvsecoto.liveobserver
 
-import com.yjy.redmine2.common.Status.*
+import com.lvsecoto.liveobserver.Status.*
 
 /**
  * A generic class that holds a value with its loading status.

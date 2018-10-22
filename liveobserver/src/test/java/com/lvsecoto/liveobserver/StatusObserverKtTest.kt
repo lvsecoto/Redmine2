@@ -3,7 +3,6 @@ package com.lvsecoto.liveobserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.yjy.redmine2.common.Resource
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

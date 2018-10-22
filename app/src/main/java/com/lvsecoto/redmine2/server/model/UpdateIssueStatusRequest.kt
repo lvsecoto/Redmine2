@@ -1,4 +1,4 @@
-package com.yjy.redmine2.server.model
+package com.lvsecoto.redmine2.server.model
 
 
 data class UpdateIssueStatusRequest(

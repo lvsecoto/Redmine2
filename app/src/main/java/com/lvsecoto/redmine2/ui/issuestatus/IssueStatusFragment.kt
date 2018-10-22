@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.lvsecoto.redmine2.R
-import com.lvsecoto.liveobserver.Status
 import com.lvsecoto.redmine2.common.utils.showToast
 import com.lvsecoto.redmine2.databinding.IssueStatusFragmentBinding
 

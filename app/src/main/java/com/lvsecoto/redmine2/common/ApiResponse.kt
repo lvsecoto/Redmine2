@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.yjy.redmine2.common
+package com.lvsecoto.redmine2.common
 
 import retrofit2.Response
 

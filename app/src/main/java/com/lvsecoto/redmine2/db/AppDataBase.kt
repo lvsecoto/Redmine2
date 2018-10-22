@@ -1,12 +1,12 @@
-package com.yjy.redmine2.db
+package com.lvsecoto.redmine2.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.yjy.redmine2.db.model.AttachmentEntity
-import com.yjy.redmine2.db.model.IssueEntity
-import com.yjy.redmine2.db.model.StatusEntity
+import com.lvsecoto.redmine2.db.model.AttachmentEntity
+import com.lvsecoto.redmine2.db.model.IssueEntity
+import com.lvsecoto.redmine2.db.model.StatusEntity
 
 @Database(entities = [
     IssueEntity::class,

@@ -1,13 +1,13 @@
-package com.yjy.redmine2.db
+package com.lvsecoto.redmine2.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.yjy.redmine2.db.model.AttachmentEntity
-import com.yjy.redmine2.db.model.IssueEntity
-import com.yjy.redmine2.db.model.StatusEntity
-import com.yjy.redmine2.repository.model.IssueDetail
-import com.yjy.redmine2.repository.model.IssueInList
-import com.yjy.redmine2.repository.model.StatusInList
+import com.lvsecoto.redmine2.db.model.AttachmentEntity
+import com.lvsecoto.redmine2.db.model.IssueEntity
+import com.lvsecoto.redmine2.db.model.StatusEntity
+import com.lvsecoto.redmine2.repository.model.IssueDetail
+import com.lvsecoto.redmine2.repository.model.IssueInList
+import com.lvsecoto.redmine2.repository.model.StatusInList
 
 @Dao
 abstract class IssuesDao {
