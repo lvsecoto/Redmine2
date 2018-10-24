@@ -24,4 +24,8 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.lvsecoto.liveobserver.test", appContext.getPackageName());
     }
+
+    @Test
+    public void test() {
+    }
 }

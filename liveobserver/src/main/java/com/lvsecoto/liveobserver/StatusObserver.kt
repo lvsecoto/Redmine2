@@ -4,15 +4,37 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
-fun <T> LiveData<Resource<T>>.onSuccess(
-    owner: LifecycleOwner,
-    observer: Observer<Resource<*>>
-): LiveData<Resource<T>> {
-    return this
+internal class StatusChangeObserver<T>(
+    private val onSuccess: Observer<Resource<T>>? = null,
+    private val onError: Observer<Resource<T>>? = null,
+    private val isLoading: Observer<Resource<T>>? = null
+) : Observer<Resource<T>> {
+
+    private var lastStatus: Status? = null
+
+    override fun onChanged(t: Resource<T>) {
+//        when (t.status) {
+//            SUCCESS -> {
+//                if (lastStatus == LOADING) {
+//                    onSuccess?.onChanged(t)
+//                }
+//            }
+//            ERROR -> TODO()
+//            LOADING -> TODO()
+//        }
+        onSuccess?.onChanged(t)
+
+        lastStatus = t.status
+    }
 }
 
-fun LiveData<Any>.onTest(
+fun <T> LiveData<Resource<T>>.watch(
     owner: LifecycleOwner,
-    observer: Observer<Resource<*>>
-){
+    onSuccess: Observer<Resource<T>>
+) {
+    this.observe(
+        owner, StatusChangeObserver(
+            onSuccess = onSuccess
+        )
+    )
 }
