@@ -3,6 +3,7 @@ package com.lvsecoto.liveobserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.lvsecoto.liveobserver.Status.*
 
 internal class StatusChangeObserver<T>(
     private val onSuccess: Observer<Resource<T>>? = null,
@@ -13,16 +14,17 @@ internal class StatusChangeObserver<T>(
     private var lastStatus: Status? = null
 
     override fun onChanged(t: Resource<T>) {
-//        when (t.status) {
-//            SUCCESS -> {
-//                if (lastStatus == LOADING) {
-//                    onSuccess?.onChanged(t)
-//                }
-//            }
-//            ERROR -> TODO()
-//            LOADING -> TODO()
-//        }
-        onSuccess?.onChanged(t)
+        when (t.status) {
+            SUCCESS -> {
+                if (lastStatus == LOADING) {
+                    onSuccess?.onChanged(t)
+                }
+            }
+            ERROR -> {
+            }
+            LOADING -> {
+            }
+        }
 
         lastStatus = t.status
     }

@@ -1,8 +1,14 @@
 package com.lvsecoto.liveobserver
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
-import com.nhaarman.mockitokotlin2.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.lvsecoto.liveobserver.mocker.mockOwner
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.never
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Rule
 import org.junit.Test
 
@@ -11,82 +17,24 @@ class PresenterTests {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-//    private val owner : LifecycleOwner
-//        get() {
-//            val lifecycle = mock<Lifecycle> {
-//                on {currentState} doReturn Lifecycle.State.RESUMED
-//            }
-//
-//            return mock {
-//                on {getLifecycle()} doReturn lifecycle
-//            }
-//        }
-
     @Test
-    fun reactIfSourceBecomeFromLoadingToSuccess() {
-        val lifecycle = mock<Lifecycle> {
-            on {currentState} doReturn Lifecycle.State.RESUMED
-        }
-
-        val owner = mock<LifecycleOwner> {
-            on {getLifecycle()} doReturn lifecycle
-        }
-
+    fun reactIfSourceStateChangeFromLoadingToSuccess() {
         val source = MutableLiveData<Resource<String>>()
         val observer = mock<Observer<Resource<String>>>()
-//        source.watch(owner,
-//            onSuccess = observer
-//        )
-        source.observe(owner, observer)
+
+        source.watch(mockOwner, onSuccess = observer)
 
         source.value = Resource.loading(null)
         verify(observer, never()).onChanged(any())
 
         source.value = Resource.success("test")
         verify(observer).onChanged(Resource.success("test"))
-
     }
 
-    @Test
-    fun showTitleTest() {
+    fun reqctIfSourceStateChangeFromLoadingToErr() {
 
-        val lifecycle = mock<Lifecycle> {
-            on { currentState } doReturn Lifecycle.State.RESUMED
-        }
-        val owner = mock<LifecycleOwner> {
-            on { getLifecycle() } doReturn lifecycle
-        }
-
-        val observer = mock<Observer<String>>()
-
-        MutableLiveData<String>().apply {
-            value = "123"
-            observe(owner, observer)
-        }
-
-        verify(observer).onChanged("123")
     }
+}
 
-    @Test
-    fun showTitleTestPassed() {
-
-        val owner: LifecycleOwner
-        val lifecycle: LifecycleRegistry
-
-        owner = mock {
-        }
-        lifecycle = LifecycleRegistry(owner)
-        whenever(owner.lifecycle).thenReturn(lifecycle)
-        lifecycle.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-
-
-        val observer = mock<Observer<String>>()
-
-        MutableLiveData<String>().apply {
-            value = "123"
-            observe(owner, observer)
-        }
-
-        verify(observer).onChanged("123")
-    }
+val toLoadinig: (LiveData<Resource<*>>) -> Unit = {
 }
